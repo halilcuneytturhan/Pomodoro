@@ -52,6 +52,8 @@ with buton_alani:
     col4,col5,col6,col7= st.columns(4)
     st.write("\n\n")
     col8,col9 = st.columns(2)
+    st.write("\n\n")
+    col10,col11 = st.columns(2)
     
 
 
@@ -79,10 +81,28 @@ with buton_alani:
     if(col7.button("Çok odaksan (50 dk)",use_container_width=True)):
         st.session_state.mod = "Ders"
         st.session_state.kalan_saniye = 50 * 60
-        st.session_state.calisiyor = True       
+        st.session_state.calisiyor = True      
+        
+     
         
     if(col9.button("eklenecek",use_container_width=True)):
         st.session_state.kalan_saniye = 0 * 60
+        
+    st.write("\n\n")
+    st.write("\n\n")
+    st.write("\n\n")
+    
+    
+    if(col10.button("TYT",use_container_width=True)):
+        st.session_state.mod = "Ders"
+        st.session_state.kalan_saniye = 165 * 60
+        st.session_state.calisiyor = True
+        
+    
+    if(col11.button("AYT",use_container_width=True)):
+        st.session_state.mod = "Ders"
+        st.session_state.kalan_saniye = 180 * 60
+        st.session_state.calisiyor = True
    
     if(col8.button("MOLA",use_container_width=True)):
         st.session_state.mola_menusu = not st.session_state.mola_menusu
@@ -127,6 +147,7 @@ with buton_alani:
 
 
 # Saniyede bir SADECE bu fonksiyonun içini çalıştırır! Sayfa titremez.
+# Saniyede bir SADECE bu fonksiyonun içini çalıştırır! Sayfa titremez.
 @st.fragment(run_every=1) 
 def motor_ve_ekran():
     
@@ -134,9 +155,17 @@ def motor_ve_ekran():
     if st.session_state.calisiyor == True and st.session_state.kalan_saniye > 0:
         st.session_state.kalan_saniye -= 1
 
-    # 2. MATEMATİK KISMI
-    dk = st.session_state.kalan_saniye // 60
+    # --- 2. YENİ AKILLI MATEMATİK KISMI ---
+    saat = st.session_state.kalan_saniye // 3600
+    dk = (st.session_state.kalan_saniye % 3600) // 60
     sn = st.session_state.kalan_saniye % 60
+
+    # Eğer süre 1 saatten fazlaysa SAAT:DK:SN göster, azsa DK:SN göster
+    if saat > 0:
+        zaman_metni = f"{saat:02d}:{dk:02d}:{sn:02d}"
+    else:
+        zaman_metni = f"{dk:02d}:{sn:02d}"
+    # --------------------------------------
 
     # 3. TASARIM VE RENK KISMI
     if st.session_state.mod == "Mola":
@@ -146,13 +175,13 @@ def motor_ve_ekran():
         ust_yazi = "ODAKLANMA VAKTİ"
         tema_rengi = "#39FF14"
 
-    # Ekrana bas (sayac.markdown yerine direkt st.markdown kullanıyoruz)
+    # Ekrana bas (HTML kısmındaki {dk:02d}:{sn:02d} yerini {zaman_metni} aldı!)
     st.markdown(f"""
     <div style='text-align: center; margin-bottom: 10px;'>
         <h3 style='color: {tema_rengi}; font-family: New Times Roman; letter-spacing: 2px;'>{ust_yazi}</h3>
     </div>
     <div style='background-color: #1e1e1e; border-radius: 30px; text-align: center; border: 4px solid {tema_rengi}; box-shadow: 0px 0px 25px {tema_rengi}55; padding: 30px;'>
-      <h1 style='color: {tema_rengi}; font-size: 90px; font-family: New Times Roman; margin:0;'>{dk:02d}:{sn:02d}</h1>
+      <h1 style='color: {tema_rengi}; font-size: 90px; font-family: New Times Roman; margin:0;'>{zaman_metni}</h1>
     </div>
     """, unsafe_allow_html=True)
 
@@ -160,6 +189,7 @@ def motor_ve_ekran():
     if st.session_state.calisiyor == True and st.session_state.kalan_saniye == 0:
         st.session_state.calisiyor = False
         st.session_state.oturum_sayisi += 1
+        st.success(f"Oturum Bitti! Toplam: {st.session_state.oturum_sayisi}")
         st.success(f"Oturum Bitti! Toplam: {st.session_state.oturum_sayisi}")
 
 # Kalkanlı fonksiyonu sayfanın sonunda çağırıyoruz ki ekranda görünsün
