@@ -1,6 +1,8 @@
 
 import time
 import streamlit as st
+#pushlandi.
+
 
 # --- SAYFA TASARIMI (CSS ENJEKSİYONU) ---
 st.markdown("""
