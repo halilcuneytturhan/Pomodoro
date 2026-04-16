@@ -183,7 +183,7 @@ def motor_ve_ekran():
         <h3 style='color: {tema_rengi}; font-family: New Times Roman; letter-spacing: 2px;'>{ust_yazi}</h3>
     </div>
     <div style='background-color: #1e1e1e; border-radius: 30px; text-align: center; border: 4px solid {tema_rengi}; box-shadow: 0px 0px 25px {tema_rengi}55; padding: 30px;'>
-      <h1 style='color: {tema_rengi}; font-size: 90px; font-family: New Times Roman; margin:0;'>{zaman_metni}</h1>
+      <h1 style='color: {tema_rengi}; font-size: 80px; font-family: New Times Roman; margin:0;'>{zaman_metni}</h1>
     </div>
     """, unsafe_allow_html=True)
 
