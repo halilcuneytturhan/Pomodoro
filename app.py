@@ -165,12 +165,3 @@ def motor_ve_ekran():
 # Kalkanlı fonksiyonu sayfanın sonunda çağırıyoruz ki ekranda görünsün
 with sayac_alani:
     motor_ve_ekran()
-
-
-
-
-
-
-
-
-
